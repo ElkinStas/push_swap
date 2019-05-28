@@ -13,10 +13,11 @@
 typedef struct      s_flist
 {
     int             number;
+    int             purpose;
     struct s_flist  *next;
 }                  t_flist;
 
-t_flist *get_list(char **av, int ac, char num);
+t_flist *get_list(char **av, int ac);
 t_flist    *ft_swap_a(t_flist **first, t_flist *new, t_flist *start, int i);
 t_flist    *ft_swap_b(t_flist **first, t_flist *new, t_flist *start, int i);
 void    t_list_reverse(t_flist **begin_list);
@@ -32,4 +33,6 @@ int		ft_list_size(t_flist *begin_list);
 void	sort_int_tab(int *tab, unsigned int size);
 int    find_center(t_flist *first);
 void algoritm1(t_flist **first, t_flist **second);
+void	algoritm3(t_flist **list, t_flist **list2);
+void algosort_small(t_flist **alpha, t_flist **beta);
 #endif

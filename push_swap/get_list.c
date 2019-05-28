@@ -18,17 +18,16 @@
     return (str);
 }
 */
-static t_flist *ft_create_list(char *str, char num)
+static t_flist *ft_create_list(char *str)
 {
     t_flist *begin;
-    
+
     begin = (t_flist*)malloc(sizeof(t_flist));
-    if (num == 'a')
-        begin->number = ft_atoi(str);
+    begin->number = ft_atoi(str);
     return (begin);
 }
 
-t_flist *get_list(char **av, int ac, char num)
+t_flist *get_list(char **av, int ac)
 {
     t_flist *new;
     t_flist *list;
@@ -43,12 +42,12 @@ t_flist *get_list(char **av, int ac, char num)
         }
     else
     {
-        new = ft_create_list(av[1], num);
+        new = ft_create_list(av[1]);
         new->next = NULL;
         start = new;
         while (i < ac)
          {
-            list = ft_create_list(av[i], num);
+            list = ft_create_list(av[i]);
             list->next = NULL;
             start->next = list;
             start = list;

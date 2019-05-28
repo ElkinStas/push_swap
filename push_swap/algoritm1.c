@@ -39,57 +39,116 @@ int checksort(t_flist **first)//проверяет, отсортирован л�
 
 }
 
-void	algoritm2(t_flist **list)//обучаем алгоритм
+void algosort_small_b(t_flist **beta)
 {
-
-	int check;
+	t_flist *first_b;
+	t_flist *second_b;
+	t_flist *last_b;
 	int i;
- 	t_flist *first;
-	t_flist *second;
-	t_flist *last;
-	first = *list;
-	second = *list;
-	last= *list;
-	i = ft_list_size(*list);
-	second = second->next;
+	first_b = *beta;
+	second_b = *beta;
+	last_b = *beta;
+	i = ft_list_size(*beta);
+	second_b = second_b->next;
 	while(i> 1)
 	{
-		last = last->next;
+		last_b = last_b->next;
 		i--;
 	}
-
-	check = checksort(&(*list));
-	while(check!= 1)
-	{
-		if ((first->number > second->number) && (last->number < first->number))
+	if ((first_b->number < second_b->number) && (first_b->number > last_b->number))
 		{
-			ft_swap_a(&(*list), (*list)->next, *list, 0);
+			ft_swap_a(&(*beta), (*beta)->next, *beta, 0);
+			ft_printf("sb\n");
+		}
+	else if ((first_b->number < second_b->number) && (first_b->number < last_b->number))
+		{
+			ft_rotate_a(&(*beta));
+			ft_printf("rb\n");
+		}
+}
+void algosort_small(t_flist **alpha, t_flist **beta)//это будет сортировка массива до 10 элементов ключительно
+{
+	int check;
+	int i;
+ 	t_flist *first_a;
+	t_flist *second_a;
+	t_flist *last_a;
+	check = checksort(&(*alpha));
+	  while((check != 1) || (ft_list_size(*beta) != 0))
+	{
+		first_a = *alpha;
+		second_a = *alpha;
+		last_a= *alpha;
+		i = ft_list_size(*alpha);
+		second_a = second_a->next;
+		while(i> 1)
+		{
+		last_a = last_a->next;
+		i--;
+		}
+		if (((first_a->number > second_a->number) && (first_a->number > last_a->number) && (ft_list_size(*alpha) > 3))||((first_a->number > second_a->number) && (first_a->number < last_a->number)))
+		{
+			ft_swap_a(&(*alpha), (*alpha)->next, *alpha, 0);
 			ft_printf("sa\n");
 		}
-		if (first->number > last->number)
+		else if ((first_a->number < second_a->number) && (first_a->number > last_a->number))
 		{
-			ft_rotate_a(&(*list));
+			ft_rotate_a(&(*alpha));
+			ft_printf("ra\n");
+		}
+		else if ((first_a->number < second_a->number) && (first_a->number < last_a->number) && (checksort(&(*alpha)) != 1))
+		{
+			ft_push_back_b(&(*alpha), &(*beta));
+			ft_printf("pb\n");
+		}
+		else if ((first_a->number > second_a->number) && (first_a->number > last_a->number)&& (ft_list_size(*alpha) <= 3))
+		{
+			ft_rotate_a(&(*alpha));
 			ft_printf("ra\n");
 		}
 
+		/*else if  ((ft_list_size(*beta) >= 2))
+		{
+			algosort_small_b(&(*beta));
+		}*/
+		else if ((check = checksort(&(*alpha)) == 1) && (ft_list_size(*beta) != 0))
+		{
+			ft_push_back_a(&(*beta), &(*alpha));
+			ft_printf("pa\n");
+		}
 
-		check = checksort(&(*list));
+		//для стека б
+		if ((ft_list_size(*beta) >= 2))
+		{
+			algosort_small_b(&(*beta));
+		}
+		check = checksort(&(*alpha));
 	}
-
 }
+
+
+
+
 void algoritm1(t_flist **first, t_flist **second)//пока научим его примитиву: пусть перебрасывает все в стек б пока не останется три элемента в стеке а
 {
 	int search;
 	int center;
+	int size;
 	center = ft_list_size(*first);
 	search = find_center(*first);
-	while(center > 3)
+	size = ft_list_size(*first);
+	if (size <= 10)
+		algosort_small(&(*first), &(*second));
+	/*while(center > 3)
 	{
 		ft_push_back_b(&(*first), &(*second));
 		ft_printf("pb\n");
 		center--;
-	}
+	}*/
 	//ft_printf("%d\n", checksort(&(*first)));
-	algoritm2(&(*first));
+	//algoritm2(&(*first), &(*second));
+
+
+	//algoritm2(&(*first), &(*second));
 
 }

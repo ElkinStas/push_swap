@@ -20,6 +20,7 @@ void    ft_check_sort_a(int number, t_flist **mas)
     j = 1;
     start= (t_flist*)malloc(sizeof(t_flist));
     start->number = (*mas)->number;
+    start->purpose = (*mas)->purpose;
     start->next = NULL;
     while (j < number)
     {
@@ -53,6 +54,7 @@ void    ft_check_sort_b(int number, t_flist **mas)
     j = 1;
     start= (t_flist*)malloc(sizeof(t_flist));
     start->number = (*mas)->number;
+    start->purpose = (*mas)->purpose;
     start->next = NULL;
     while (j < number)
     {
@@ -139,6 +141,7 @@ void    ft_push_back_a(t_flist **first, t_flist **second)
 
     other = (t_flist*)malloc(sizeof(t_flist));
     other->number = (*first)->number;
+    other->purpose = (*first)->purpose;
     other->next = *second;
     *second = other;
     *first = (*first)->next;
@@ -150,6 +153,7 @@ void    ft_push_back_b(t_flist **first, t_flist **second)
 
     other = (t_flist*)malloc(sizeof(t_flist));
     other->number = (*first)->number;
+    other->purpose = (*first)->purpose;
     other->next = *second;
     *second = other;
     *first = (*first)->next;

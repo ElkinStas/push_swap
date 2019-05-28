@@ -11,7 +11,7 @@ $(NAME):
 	gcc -c -Wall -Wextra -Werror $(SRC) -I.
 	gcc -Wall -Wextra -Werror $(OBJS) -L. libft/$(LIBRARY) -o $(NAME)
 	make fclean -C ./libft
-		
+
 clean:
 	rm -f $(OBJS)
 

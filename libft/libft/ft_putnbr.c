@@ -3,52 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptorchbu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bhudson <bhudson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/05 12:09:43 by ptorchbu          #+#    #+#             */
-/*   Updated: 2019/05/05 12:09:46 by ptorchbu         ###   ########.fr       */
+/*   Created: 2018/12/14 14:27:57 by bhudson           #+#    #+#             */
+/*   Updated: 2019/03/20 14:10:16 by bhudson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	void	ft_recprint(char *str, intmax_t neg)
+void	ft_putnbr(int n)
 {
-	int		i;
+	unsigned long int	a;
 
-	i = ft_strlen(str) - 1;
-	if (neg == -1)
-		ft_putchar('-');
-	if (*str == '\0')
-		ft_putchar('0');
-	while (i >= 0)
-	{
-		ft_putchar(str[i]);
-		i--;
-	}
-}
-
-void			ft_putnbr(intmax_t n)
-{
-	intmax_t		num;
-	char			str[20];
-	int				i;
-	int				neg;
-
-	i = 0;
-	num = n;
-	neg = 0;
 	if (n < 0)
 	{
-		neg = -1;
-		num = num * (-1);
+		a = -1 * n;
+		ft_putchar('-');
 	}
-	while (num != 0)
+	else
 	{
-		str[i] = (num % 10) + '0';
-		num /= 10;
-		i++;
+		a = n;
 	}
-	str[i] = '\0';
-	ft_recprint(str, neg);
+	if (a >= 10)
+	{
+		ft_putnbr(a / 10);
+	}
+	ft_putchar((char)(a % 10 + '0'));
 }

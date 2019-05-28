@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_numwr.c                                         :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptorchbu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bhudson <bhudson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/04 18:22:34 by ptorchbu          #+#    #+#             */
-/*   Updated: 2019/05/04 18:22:52 by ptorchbu         ###   ########.fr       */
+/*   Created: 2019/01/30 16:56:55 by bhudson           #+#    #+#             */
+/*   Updated: 2019/02/15 16:18:01 by bhudson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# include <unistd.h>
+# include <stdlib.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# define BUFF_SIZE 5
 
-int		ft_numwr(char const *s, char c)
-{
-	int num;
-
-	num = 0;
-	while (*s && *s == c)
-		s++;
-	while (*s)
-	{
-		if (*s == c && *(s + 1) != c)
-			num++;
-		s++;
-	}
-	if (*(s - 1) && *(s - 1) != c)
-		num++;
-	return (num);
-}
+int get_next_line(int const fd, char **line);
+#endif

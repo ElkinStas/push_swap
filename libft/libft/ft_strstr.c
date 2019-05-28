@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptorchbu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bhudson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/05 12:04:46 by ptorchbu          #+#    #+#             */
-/*   Updated: 2019/05/05 12:04:49 by ptorchbu         ###   ########.fr       */
+/*   Created: 2018/12/08 17:49:03 by bhudson           #+#    #+#             */
+/*   Updated: 2018/12/11 14:31:30 by bhudson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,29 @@
 
 char	*ft_strstr(const char *haystack, const char *needle)
 {
-	size_t			i;
-	size_t			l;
-	unsigned char	*strh;
-	unsigned char	*strn;
+	unsigned char	*s1;
+	unsigned char	*s2;
+	unsigned char	*d;
+	unsigned char	*ndl;
 
-	strh = (unsigned char *)haystack;
-	strn = (unsigned char *)needle;
-	i = 0;
-	if (*strn == '\0')
-		return ((char *)haystack);
-	while (strh[i] != '\0')
+	s1 = (unsigned char *)haystack;
+	s2 = (unsigned char *)needle;
+	if (s1 == s2 || *s2 == '\0')
+		return ((char*)s1);
+	while (*s1 != '\0')
 	{
-		l = 0;
-		while (strn[l] == strh[i + l])
+		d = s1;
+		ndl = s2;
+		while (*s1 == *s2)
 		{
-			if (strn[l + 1] == '\0')
-				return ((char *)strh + i);
-			l++;
+			if (s2[1] == '\0')
+				return ((char*)d);
+			s1++;
+			s2++;
 		}
-		i++;
+		s2 = ndl;
+		s1 = d;
+		s1++;
 	}
 	return (NULL);
 }

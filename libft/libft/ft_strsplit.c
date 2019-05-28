@@ -3,78 +3,102 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptorchbu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bhudson <bhudson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/04 18:42:20 by ptorchbu          #+#    #+#             */
-/*   Updated: 2019/05/04 18:42:23 by ptorchbu         ###   ########.fr       */
+/*   Created: 2018/12/20 18:23:08 by bhudson           #+#    #+#             */
+/*   Updated: 2019/02/13 17:57:59 by bhudson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_numwrld(char const *s, char c)
+static int			ft_schetun(char *s, char c)
 {
-	unsigned int num;
+	int		slova;
+	int		i;
 
-	num = 0;
-	while (*s && *s == c)
-		s++;
+	slova = 0;
+	i = 0;
+	while (s[i])
+	{
+		while (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
+		{
+			slova++;
+			i++;
+			if (s[i] == '\0')
+				return (slova);
+		}
+		i++;
+	}
+	return (slova);
+}
+
+static char			*ft_dvigun(char *s, char c)
+{
+	if (!s)
+		return (NULL);
 	while (*s)
 	{
-		if (*s == c && *(s + 1) != c)
-			num++;
+		if (*s != c && ((*(s - 1)) == c || (!(*(s - 1)))))
+		{
+			return (s);
+		}
 		s++;
 	}
-	if (*(s - 1) && *(s - 1) != c)
-		num++;
-	return (num);
-}
-
-static size_t	ft_strclen(char *s, char c)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i] != c && s[i] != '\0')
-		i++;
-	return (i);
-}
-
-static	char	**ft_strfree(char **arr, int i)
-{
-	while (i >= 0)
-	{
-		free(arr[i]);
-		i--;
-	}
-	free(arr);
 	return (NULL);
 }
 
-char			**ft_strsplit(char const *s, char c)
+static char			*ft_pamat(const char *z, char *a, char c)
 {
-	int		wrld;
 	int		i;
-	int		num;
-	char	**arr;
 
 	i = 0;
-	num = 0;
+	if (*z != '\0')
+	{
+		while (z[i] != c && z[i] != '\0')
+		{
+			i++;
+		}
+		if (!(a = (char*)malloc(sizeof(char) * i + 1)))
+		{
+			while (i-- != 0)
+				free(&a[i]);
+			free(a);
+			return (NULL);
+		}
+		a[i] = '\0';
+		while (i--)
+		{
+			a[i] = z[i];
+		}
+		return (a);
+	}
+	else
+		return (NULL);
+}
+
+char				**ft_strsplit(char const *s, char c)
+{
+	char	**masukaz;
+	char	*temp;
+	int		j;
+	int		y;
+
+	temp = (char*)s;
 	if (!s)
 		return (NULL);
-	wrld = ft_numwrld(s, c);
-	if (!(arr = (char **)malloc(sizeof(char *) * (wrld + 1))))
+	j = ft_schetun((char*)s, c);
+	if (!(masukaz = (char**)malloc(sizeof(char*) * (j + 1))))
 		return (NULL);
-	while (i < wrld)
+	y = j;
+	j = 0;
+	while (j < y)
 	{
-		while (*(s + num) == c)
-			num++;
-		if (!(arr[i] = ft_strsub(s, num, ft_strclen((char *)(s + num), c))))
-			return (ft_strfree(arr, i));
-		while (*(s + num) != c)
-			num++;
-		i++;
+		temp = ft_dvigun(temp, c);
+		masukaz[j] = ft_pamat(temp, masukaz[j], c);
+		j++;
+		temp++;
 	}
-	arr[i] = (void *)0;
-	return (arr);
+	masukaz[j] = NULL;
+	return (masukaz);
 }

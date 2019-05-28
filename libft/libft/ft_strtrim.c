@@ -3,58 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptorchbu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bhudson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/04 18:31:47 by ptorchbu          #+#    #+#             */
-/*   Updated: 2019/05/04 18:31:52 by ptorchbu         ###   ########.fr       */
+/*   Created: 2018/12/14 11:05:13 by bhudson           #+#    #+#             */
+/*   Updated: 2018/12/14 13:08:11 by bhudson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*ft_rtnarr(char const *s, size_t i, size_t l)
+char	*ft_strtrim(char const *s)
 {
-	size_t	n;
 	char	*str;
+	int		i;
+	int		j;
+	int		size;
 
-	n = 0;
-	if (!(str = (char *)malloc(sizeof(char) * (l - i) + 1)))
-		return (NULL);
-	while (i <= l)
-	{
-		str[n] = s[i];
-		i++;
-		n++;
-	}
-	str[n - 1] = '\0';
-	return (str);
-}
-
-static char	*ft_rtnnull(void)
-{
-	char *str;
-
-	str = (char *)malloc(sizeof(char) * 1);
-	*str = '\0';
-	return (str);
-}
-
-char		*ft_strtrim(char const *s)
-{
-	size_t	i;
-	size_t	l;
-
-	i = 0;
 	if (!s)
 		return (NULL);
-	l = ft_strlen(s);
-	while (s[i] == ',' || s[i] == '\n' || s[i] == ' ' || s[i] == '\t')
+	i = 0;
+	j = 0;
+	size = ft_strlen((char*)s) - 1;
+	while (s[i] == '\n' || s[i] == '\t' || s[i] == ' ')
 		i++;
-	while (s[l - 1] == ',' || s[l - 1] == '\n' ||
-			s[l - 1] == ' ' || s[l - 1] == '\t')
-		l--;
-	if (s[i] == '\0')
-		return (ft_rtnnull());
-	else
-		return (ft_rtnarr(s, i, l));
+	if (!(str = ((char*)malloc(sizeof(char) * (size - i + 1)))))
+		return (NULL);
+	while (s[size] == '\n' || s[size] == '\t' || s[size] == ' ')
+		size--;
+	while (i <= size)
+	{
+		str[j] = s[i];
+		j++;
+		i++;
+	}
+	str[j] = '\0';
+	return (str);
 }

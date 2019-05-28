@@ -5,103 +5,130 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ptorchbu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/04 18:41:28 by ptorchbu          #+#    #+#             */
-/*   Updated: 2019/05/04 18:41:34 by ptorchbu         ###   ########.fr       */
+/*   Created: 2019/04/10 16:10:57 by ptorchbu          #+#    #+#             */
+/*   Updated: 2019/04/10 19:55:36 by ptorchbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "printf.h"
 
-int		ft_sotr_type(char *iter, t_format *lst, va_list lst_arg)
+char	*ft_func_check_signs(char *p, t_flist *base)
 {
-	ft_check_special_type(iter, lst);
-	if (*iter == 'i' || *iter == 'd' || *iter == 'D')
-		ft_put_decimal(lst, lst_arg);
-	if (*iter == 'x' || *iter == 'X')
-		ft_put_hexadecimal(lst, lst_arg, *iter);
-	if (*iter == 'o' || *iter == 'O')
-		ft_put_octal(lst, lst_arg);
-	if (*iter == '%')
-		ft_put_percent(lst);
-	if (*iter == 'u' || *iter == 'U')
-		ft_put_unsigned(lst, lst_arg);
-	if (*iter == 'f' || *iter == 'F')
-		ft_put_float(lst, lst_arg, *iter);
-	if (*iter == 's')
-		ft_put_string(lst, lst_arg);
-	if (*iter == 'c')
-		ft_put_char(lst, lst_arg);
-	if (*iter == 'p')
-		ft_put_pointer(lst, lst_arg);
-	return (1);
+	char	*ptr;
+
+	ptr = p;
+	if (*ptr == '-' && (base->match = 1))
+		ft_minus1(&ptr, base);
+	if (*ptr == '+' && (base->match = 1))
+		ft_plus1(&ptr, base);
+	if (*ptr == '#' && (base->match = 1))
+		ft_cage(base);
+	if (*ptr == ' ' && (base->match = 1))
+		ft_space(base);
+	if (*p >= '0' && *p <= '9' && base->point2 == '.')
+		base->match = 1;
+	if (*ptr >= '0' && *ptr <= '9' && base->point2 != '.' && (base->match = 1))
+		ft_indent(&ptr, base);
+	if (*ptr == '.' && (base->match = 1))
+		ft_point(&ptr, base);
+	return (ptr);
 }
 
-int		ft_chack_valid_format(char *iter, char **iter_ptr, int *len)
+void	ft_func_check_symb1(va_list ap, char *p, t_flist *base)
 {
-	int	i;
-
-	i = 0;
-	if (*iter == '\0')
+	if ((*p == 'c') && (base->match = 1))
 	{
-		(*len)++;
-		return (0);
+		functionchar(ap, base);
+		base->work = 1;
 	}
-	while (!ft_istype(*iter))
+	if (*p == 'p' && (base->match = 1))
 	{
-		if ((!ft_isflag(*iter) && !ft_issize(*iter) &&
-				!ft_isdigit(*iter) && *iter != '.' && *iter != '*')
-				|| *(iter + 0) == '\0')
+		ft_pointer(ap, base);
+		base->work = 1;
+	}
+	if (*p == 'f' && (base->match = 1))
+	{
+		functionfloat(ap, base);
+		base->work = 1;
+	}
+	if (*p == 'u' && (base->match = 1))
+	{
+		functiondigitalu(ap, base);
+		base->work = 1;
+	}
+	if (*p == '%' && (base->match = 1))
+	{
+		functionper(base);
+		base->work = 1;
+	}
+}
+
+void	ft_func_check_symb2(va_list ap, char *p, t_flist *base)
+{
+	if (*p == 's' && (base->match = 1))
+	{
+		functionstring(ap, base);
+		base->work = 1;
+	}
+	if ((*p == 'd' || *p == 'i') && (base->match = 1))
+	{
+		functiondigital(ap, base);
+		base->work = 1;
+	}
+	if (*p == 'o' && (base->match = 1))
+	{
+		functioneight(ap, base);
+		base->work = 1;
+	}
+	if (*p == 'x' && (base->match = 1))
+	{
+		functionsix(ap, base);
+		base->work = 1;
+	}
+	if (*p == 'X' && (base->match = 1))
+	{
+		functionsixbig(ap, base);
+		base->work = 1;
+	}
+}
+
+int		ft_search_flags(va_list ap, char *p, t_flist base)
+{
+	while (*p != '\0')
+	{
+		base.work = 0;
+		if (*p != '%')
+			ft_text(&p, &base);
+		if (*p != '\0')
+			p++;
+		while (*p != '\0' && base.work == 0)
 		{
-			*iter_ptr += i;
-			*len = i + 1;
-			return (0);
+			base.match = 0;
+			fucnctcheck(&p, &base);
+			p = ft_func_check_signs(p, &base);
+			ft_func_check_symb1(ap, p, &base);
+			ft_func_check_symb2(ap, p, &base);
+			if (*p != '\0' && base.match != 0)
+				p++;
+			else
+			{
+				break ;
+			}
 		}
-		i++;
-		iter++;
 	}
-	return (1);
-}
-
-int		ft_sort_arg(char *iter, va_list lst_arg, size_t *len_str,
-		size_t *len_format)
-{
-	t_format	*lst;
-	char		*ptr;
-
-	ptr = iter;
-	lst = ft_newstruct();
-	ptr += ft_read_format(iter, lst, lst_arg);
-	ptr += ft_sotr_type(ptr, lst, lst_arg);
-	*len_str += lst->len_str;
-	*len_format += (ptr - iter + 1);
-	free(lst);
-	return (ptr - iter);
+	return (base.count);
 }
 
 int		ft_printf(const char *restrict format, ...)
 {
-	char		*iter;
-	va_list		lst_arg;
-	size_t		len_str;
-	size_t		len_format;
-	int			len;
+	va_list	ap;
+	char	*p;
+	t_flist	base;
 
-	len = 0;
-	len_str = 0;
-	len_format = 0;
-	va_start(lst_arg, format);
-	iter = (char *)format;
-	while (*iter != '\0')
-	{
-		if (*iter == '%')
-		{
-			if (ft_chack_valid_format((iter + 1), &iter, &len))
-				iter += ft_sort_arg(iter + 1, lst_arg, &len_str, &len_format);
-		}
-		else
-			ft_putchar(*iter);
-		iter++;
-	}
-	va_end(lst_arg);
-	return ((iter - format) - len + len_str - len_format);
+	ft_create_base(&base);
+	va_start(ap, format);
+	p = (char *)format;
+	base.count = ft_search_flags(ap, p, base);
+	va_end(ap);
+	return (base.count);
 }

@@ -3,64 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptorchbu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bhudson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/04 18:19:24 by ptorchbu          #+#    #+#             */
-/*   Updated: 2019/05/04 18:19:27 by ptorchbu         ###   ########.fr       */
+/*   Created: 2018/12/18 14:18:51 by bhudson           #+#    #+#             */
+/*   Updated: 2018/12/18 14:24:06 by bhudson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*ft_recstr(char *str, int neg)
+static int	ft_count(unsigned int s)
 {
-	long int	i;
-	size_t		n;
-	char		cop[23];
-	char		*rtnstr;
+	size_t			r;
 
-	n = 0;
-	i = ft_strlen(str) - 1;
-	if (neg < 0)
-		cop[n++] = '-';
-	if (i == -1)
-		cop[n++] = '0';
-	while (i >= 0)
+	r = 0;
+	while (s >= 10)
 	{
-		cop[n] = str[i];
-		n++;
-		i--;
+		s = s / 10;
+		r++;
 	}
-	cop[n] = '\0';
-	if (!(rtnstr = ft_strdup(cop)))
-		return (NULL);
-	return (rtnstr);
+	return (r);
 }
 
-char		*ft_itoa(intmax_t n)
+char		*ft_itoa(int n)
 {
-	size_t			i;
-	uintmax_t		num;
-	int				neg;
-	char			str[21];
-	char			*rtnstr;
+	char			*s;
+	unsigned int	p;
+	size_t			a;
 
-	i = 0;
-	neg = 0;
-	num = n;
+	p = n;
+	a = 0;
 	if (n < 0)
 	{
-		num = n * (-1);
-		neg = -1;
+		p = (-1) * n;
+		a++;
 	}
-	while (num != 0)
-	{
-		str[i] = (num % 10) + '0';
-		num /= 10;
-		i++;
-	}
-	str[i] = '\0';
-	if (!(rtnstr = ft_recstr(str, neg)))
+	a = a + ft_count(p);
+	if (!(s = malloc(sizeof(char) * (a + 2))))
 		return (NULL);
-	return (rtnstr);
+	s[++a] = '\0';
+	if (n < 0)
+		s[0] = '-';
+	while (p >= 10)
+	{
+		s[--a] = p % 10 + '0';
+		p = p / 10;
+	}
+	s[--a] = p % 10 + '0';
+	return (s);
 }

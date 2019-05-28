@@ -3,25 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptorchbu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bhudson <bhudson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/04 18:30:54 by ptorchbu          #+#    #+#             */
-/*   Updated: 2019/05/05 12:17:21 by ptorchbu         ###   ########.fr       */
+/*   Created: 2018/12/21 13:57:09 by bhudson           #+#    #+#             */
+/*   Updated: 2019/05/28 16:40:50 by bhudson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include <unistd.h>
+# include <stdlib.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 # include <string.h>
 # include <stdlib.h>
+# include <unistd.h>
+# include <stdarg.h>
 
-typedef struct		s_list
+typedef struct		s_lst
 {
 	void			*content;
 	size_t			content_size;
-	struct s_list	*next;
-}					t_list;
+	struct s_lst	*next;
+}					t_lst;
 
 size_t				ft_strlen (const char *s);
 char				*ft_strdup(const char *s1);
@@ -67,29 +73,22 @@ char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
-char				*ft_itoa(intmax_t n);
-char				*ft_itoa_llint(long long int n);
-char				*ft_un_itoa(uintmax_t n);
+char				*ft_itoa(int n);
 void				ft_putchar(char c);
 void				ft_putstr(char const *s);
 void				ft_putendl(char const *s);
-void				ft_putnbr(intmax_t n);
+void				ft_putnbr(int n);
 void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char const *s, int fd);
 void				ft_putendl_fd(char const *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
-t_list				*ft_lstnew(void const *content, size_t content_size);
-void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
-void				ft_lstdel(t_list **alst, void (*del)(void*, size_t));
-void				ft_lstadd(t_list **alst, t_list *new);
-void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
-size_t				ft_strcl(const char *s, char c);
-char				*ft_strnjoin(char const *s1, char const *s2);
-char				*ft_strnjoinfree(char *s1, char const *s2);
-void				ft_itoo(char *str, uintmax_t n);
-void				ft_itox(char *str, uintmax_t n);
+t_lst				*ft_lstnew(void const *content, size_t content_size);
+void				ft_lstdelone(t_lst **alst, void (*del)(void *, size_t));
+void				ft_lstdel(t_lst **alst, void (*del)(void*, size_t));
+void				ft_lstadd(t_lst **alst, t_lst *new);
+void				ft_lstiter(t_lst *lst, void (*f)(t_lst *elem));
+t_lst				*ft_lstmap(t_lst *lst, t_lst *(*f)(t_lst *elem));
+void				ft_qsort(int v[], int left, int right);
+int					get_next_line(int const fd, char **line);
 int					ft_printf(const char *restrict format, ...);
-char				*ft_copy_string_right(char *str1, char *str2);
-char				*ft_copy_string_left(char *str1, char *str2);
-
 #endif

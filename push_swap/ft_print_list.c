@@ -1,5 +1,5 @@
 #include "push_swap.h"
-
+/* это все для малого алгоритма до 10 цифр включительно*/
 void    ft_print_list(t_flist *first, t_flist *second)
 {
     while (first || second)
@@ -61,14 +61,13 @@ int find_center(t_flist *first)//это заполнит массив цифра
         search= search->next;
         j++;
     }
-    sort_int_tab(tab, i);
-    //while(q < j)
-       // {
-            while(first != NULL)
-            {
-                j= 0;
-                while(tab[j] != (first)->number)
-                j++;
+    //sort_int_tab(tab, i);
+    ft_qsort(tab, 0, --i);
+    while(first != NULL)
+    {
+      j= 0;
+         while(tab[j] != (first)->number)
+        j++;
         first->purpose = j;
         first = first->next;
     }

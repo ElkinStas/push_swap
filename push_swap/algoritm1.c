@@ -14,16 +14,17 @@ int checksort(t_flist **first)//проверяет, отсортирован л�
     tab = (int*)malloc(sizeof(int) * i);
     search = *first;
 	search2 = *first;
+
     while (search != NULL)
     {
 
 		tab[j] = search->number;
 
 		search= search->next;
-
         j++;
     }
-    sort_int_tab(tab, i);
+   // sort_int_tab(tab, i);
+   	ft_qsort(tab, 0, --i);
 	i = 0;
 	while(search2 != NULL)
 	{
@@ -93,8 +94,8 @@ void algosort_small(t_flist **alpha, t_flist **beta)//это будет сорт
 		}
 		else if ((first_a->number < second_a->number) && (first_a->number > last_a->number))
 		{
-			ft_rotate_a(&(*alpha));
-			ft_printf("ra\n");
+			ft_reverse_rotate_a(&(*alpha));
+			ft_printf("rra\n");
 		}
 		else if ((first_a->number < second_a->number) && (first_a->number < last_a->number) && (checksort(&(*alpha)) != 1))
 		{
@@ -139,16 +140,10 @@ void algoritm1(t_flist **first, t_flist **second)//пока научим его 
 	size = ft_list_size(*first);
 	if (size <= 10)
 		algosort_small(&(*first), &(*second));
-	/*while(center > 3)
+	else
 	{
-		ft_push_back_b(&(*first), &(*second));
-		ft_printf("pb\n");
-		center--;
-	}*/
-	//ft_printf("%d\n", checksort(&(*first)));
-	//algoritm2(&(*first), &(*second));
+		ft_algosrt_big(&(*first), &(*second));
+	}
 
-
-	//algoritm2(&(*first), &(*second));
 
 }

@@ -38,4 +38,5 @@ void algosort_small(t_flist **alpha, t_flist **beta);
 int checksort(t_flist **first);
 int algosort_big_all(t_flist **alpha, t_flist **beta);
 void ft_algosrt_big(t_flist **alpha, t_flist **beta);
+void algosort_big_b(t_flist **alpha, t_flist **beta);
 #endif

@@ -9,7 +9,7 @@ void	ft_balance(t_flist **alpha, t_flist **beta)//балансировка ве�
 	searcher = *alpha;
 	search =  find_center(*alpha);
 	lists_lenght = ft_list_size(*alpha);
-	while (ft_list_size(*alpha) > 5)
+	while (ft_list_size(*alpha) > 3)
 	{
 		searcher = *alpha;
 		search =  find_center(*alpha);
@@ -20,7 +20,14 @@ void	ft_balance(t_flist **alpha, t_flist **beta)//балансировка ве�
 			{
 				ft_push_back_b(&(*alpha), &(*beta));
 				ft_printf("pb\n");
+
 			}
+			else
+			{
+				ft_rotate_a(&(*alpha));
+				ft_printf("ra\n");
+			}
+
 			searcher= searcher->next;
 		}
 	}
@@ -32,7 +39,7 @@ void	ft_balance(t_flist **alpha, t_flist **beta)//балансировка ве�
 
 void ft_algosrt_big(t_flist **alpha, t_flist **beta)//запускает большой алгоритм
 {
-	int i = 10;
+	int i = 3;
 	int j = 0;
 	ft_balance(&(*alpha), &(*beta));//балансировка ветвей
 
@@ -46,14 +53,15 @@ void ft_algosrt_big(t_flist **alpha, t_flist **beta)//запускает бол�
 				while(j > 0)
 				{
 					ft_push_back_a(&(*beta), &(*alpha));
+					algosort_big_b(&(*alpha), &(*beta));
 					ft_printf("pa\n");
 					j--;
 				}
-				i = i + i;
+				i = i * i;
 		}
 	}
 }
-void algosort_big_b(t_flist **beta)
+void algosort_big_b(t_flist **alpha, t_flist **beta)
 {
 	t_flist *first_b;
 	t_flist *second_b;
@@ -69,12 +77,14 @@ void algosort_big_b(t_flist **beta)
 		last_b = last_b->next;
 		i--;
 	}
-	if ((first_b->number < second_b->number) && (first_b->number > last_b->number))
+
+
+		if ((first_b->number < second_b->number) && (first_b->number > last_b->number))
 		{
 			ft_swap_a(&(*beta), (*beta)->next, *beta, 0);
 			ft_printf("sb\n");
 		}
-	else if ((first_b->number < second_b->number) && (first_b->number < last_b->number))
+		else if ((first_b->number < second_b->number) && (first_b->number < last_b->number))
 		{
 			ft_reverse_rotate_b(&(*beta));
 			ft_printf("rrb\n");
@@ -84,6 +94,11 @@ void algosort_big_b(t_flist **beta)
 			ft_rotate_a(&(*beta));
 			ft_printf("rb\n");
 		}
+		/*else if ((first_b->number > second_b->number) && (first_b->number > last_b->number))
+		{
+			ft_push_back_a(&(*beta), &(*alpha));
+			ft_printf("pa\n");
+		}*/
 
 }
 int algosort_big_all(t_flist **alpha, t_flist **beta)//это будет сортировка массива до 10 элементов ключительно
@@ -135,9 +150,9 @@ int algosort_big_all(t_flist **alpha, t_flist **beta)//это будет сор�
 		}
 
 		//для стека б
-		if ((ft_list_size(*beta) >= 2))
+			if ((ft_list_size(*beta) >= 2))
 		{
-			algosort_big_b(&(*beta));
+			algosort_big_b(&(*alpha), &(*beta));
 		}
 		check = checksort(&(*alpha));
 	}

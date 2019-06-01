@@ -145,6 +145,7 @@ void    ft_push_back_a(t_flist **first, t_flist **second)
     other->next = *second;
     *second = other;
     *first = (*first)->next;
+    //free(other);
 }
 
 void    ft_push_back_b(t_flist **first, t_flist **second)
@@ -157,6 +158,7 @@ void    ft_push_back_b(t_flist **first, t_flist **second)
     other->next = *second;
     *second = other;
     *first = (*first)->next;
+   // free(other);
 }
 
 int		ft_list_size(t_flist *begin_list)

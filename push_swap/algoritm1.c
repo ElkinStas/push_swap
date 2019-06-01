@@ -23,7 +23,7 @@ int checksort(t_flist **first)//проверяет, отсортирован л�
 		search= search->next;
         j++;
     }
-   // sort_int_tab(tab, i);
+    //sort_int_tab(tab, i);
    	ft_qsort(tab, 0, --i);
 	i = 0;
 	while(search2 != NULL)

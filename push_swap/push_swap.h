@@ -31,7 +31,7 @@ void    ft_reverse_rotate_b(t_flist **first);
 void    ft_print_list(t_flist *first, t_flist *second);
 int		ft_list_size(t_flist *begin_list);
 void	sort_int_tab(int *tab, unsigned int size);
-int    find_center(t_flist *first);
+int    find_center(t_flist *first, int lenght);
 void algoritm1(t_flist **first, t_flist **second);
 void	algoritm3(t_flist **list, t_flist **list2);
 void algosort_small(t_flist **alpha, t_flist **beta);
@@ -39,4 +39,6 @@ int checksort(t_flist **first);
 int algosort_big_all(t_flist **alpha, t_flist **beta);
 void ft_algosrt_big(t_flist **alpha, t_flist **beta);
 void algosort_big_b(t_flist **alpha, t_flist **beta);
+void	ft_balance(t_flist **alpha, t_flist **beta);
+
 #endif

@@ -240,33 +240,42 @@ void    ft_reverse_rotate_b(t_flist **first)
 
 }
 
+
 void    ft_rotate_a(t_flist **first)
 {
     t_flist *one;
     t_flist *final;
+    t_flist *third;
+
 
     one = *first;
     final = *first;
     *first = (*first)->next;
-    while (final->next)
+    third = *first;
+    while ((*first)->next)
     {
-        final = final->next;
+        *first = (*first)->next;
     }
-    final->next = one;
+    (*first)->next = one;
     one->next = NULL;
+    *first = third;
 }
 void    ft_rotate_b(t_flist **first)
 {
-    t_flist *one;
+       t_flist *one;
     t_flist *final;
+    t_flist *third;
+
 
     one = *first;
     final = *first;
     *first = (*first)->next;
-    while (final->next)
+    third = *first;
+    while ((*first)->next)
     {
-        final = final->next;
+        *first = (*first)->next;
     }
-    final->next = one;
+    (*first)->next = one;
     one->next = NULL;
+    *first = third;
 }

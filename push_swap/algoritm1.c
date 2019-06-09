@@ -135,12 +135,12 @@ void algoritm1(t_flist **first, t_flist **second)//пока научим его 
 	int search;
 	int center;
 	int size;
-	center = ft_list_size(*first);
-	search = find_center(*first);
+	//center = ft_list_size(*first);
+	//search = find_center(*first);
 	size = ft_list_size(*first);
 	if (size <= 10)
 		algosort_small(&(*first), &(*second));
-	else
+    else
 	{
 		ft_algosrt_big(&(*first), &(*second));
 	}

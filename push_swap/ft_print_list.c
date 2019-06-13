@@ -40,6 +40,40 @@ void	sort_int_tab(int *tab, unsigned int size)
 		i++;
 	}
 }
+
+int find_center2(t_flist *first, int lenght)//это заполнит массив цифрами наобум и расставляет в нужном порядке
+{
+    t_flist *search;
+    t_flist *search2;
+    int i;
+    int j = 0;
+    int lenght2;
+    lenght2 = lenght;
+    i = 0;
+    int *tab;
+    int center;
+    int q;
+    q = 0;
+    i = lenght;
+    tab = (int*)malloc(sizeof(int) * i);
+    search = first;
+    search2 = first;
+    while(lenght > 0)
+    {
+        tab[j] = (search)->number;
+        search= search->next;
+        j++;
+        lenght --;
+    }
+    //sort_int_tab(tab, i);
+    ft_qsort(tab, 0, --i);
+
+    center = tab[i/2];
+    free(tab);
+    return (center);
+}
+
+
 int find_center(t_flist *first, int lenght)//это заполнит массив цифрами наобум и расставляет в нужном порядке
 {
     t_flist *search;

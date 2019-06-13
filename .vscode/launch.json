@@ -9,7 +9,7 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "/Users/bhudson/workspace/push_swap_git/push_swap/a.out",
-			"args": ["20", "9", "67", "1233", "5", "424", "11", "1237", "1", "80000000", "10", "75", "19", "267", "1323", "15", "4324", "111", "237", "-11", "-800", "101"],
+			"args": ["16", "15", "14", "13", "12", "11", "10", "9", "8", "7", "6", "5", "4", "3", "2", "1", "0"],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [],

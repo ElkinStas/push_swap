@@ -40,6 +40,53 @@ int checksort(t_flist **first)//проверяет, отсортирован л�
 
 }
 
+int checksort2(t_flist **first)//проверяет, отсортирован ли массив в листах
+{
+	t_flist *search;
+    t_flist *search2;
+	int i;
+	int checka = 0;
+    int j = 0;
+    i = 0;
+    int *tab;
+    int match;
+	match = 0;
+    i = ft_list_size(*first);
+    tab = (int*)malloc(sizeof(int) * i);
+    search = *first;
+	search2 = *first;
+
+    while (search != NULL)
+    {
+
+		tab[j] = search->number;
+
+		search= search->next;
+        j++;
+    }
+    //sort_int_tab(tab, i);
+   	ft_qsort(tab, 0, --i);
+	i = 0;
+	while(search2 != NULL)
+	{
+
+		if(search2->number != tab[i])
+			{
+				i++;
+				search2 = search2->next;
+			}
+		else
+		{i++;
+		search2 = search2->next;
+		checka++;
+		}
+	}
+
+		free(tab);
+		return(checka);
+
+}
+
 void algosort_small_b(t_flist **beta)
 {
 	t_flist *first_b;

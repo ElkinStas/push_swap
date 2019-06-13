@@ -48,6 +48,7 @@ int lists_lenght;
 	{
 		searcher2 = *beta;
 		stop_sort = step;
+		if (huy < step2)
 		search =  find_center(*beta, huy);
 		if(step2 >= step)
 		{
@@ -131,7 +132,7 @@ int lists_lenght;
 	{
 			searcher2 = *alpha;
 			stop_sort = step;
-
+			if (huy < step2)
 			search =  find_center(*alpha, huy);
 			if(step2 >= step)
 			{
@@ -304,6 +305,7 @@ int lists_lenght;
 	{
 		searcher2 = *beta;
 		stop_sort = step;
+		if (huy < step2)
 		search =  find_center(*beta, huy);
 		if(step2 >= step )
 		{
@@ -383,12 +385,12 @@ void algosort_small_a(t_flist **alpha, t_flist **beta)
 		last_a = last_a->next;
 		i--;
 	}
-		if (((first_a->number < second_a->number) && (first_a->number > last_a->number)))
+		if (first_a->number < second_a->number)
 		{
 			ft_swap_a(&(*alpha), (*alpha)->next, *alpha, 0);
 			ft_printf("sa\n");
 		}
-		else if ((first_a->number > second_a->number) && (first_a->number < last_a->number))
+		 if ((first_a->number > second_a->number) && (first_a->number < last_a->number))
 		{
 			ft_reverse_rotate_a(&(*alpha));
 			ft_printf("rra\n");
@@ -396,7 +398,7 @@ void algosort_small_a(t_flist **alpha, t_flist **beta)
 			ft_printf("rra\n");
 		}
 
-		else  if ((first_a->number < second_a->number) && (first_a->number < last_a->number)&& (ft_list_size(*alpha) <= 2))
+		  if ((first_a->number < second_a->number) && (first_a->number < last_a->number)&& (ft_list_size(*alpha) <= 2))
 		{
 			ft_rotate_a(&(*alpha));
 			ft_printf("ra\n");
@@ -416,7 +418,7 @@ void ft_algos(t_flist **alpha, t_flist **beta)
 	t_flist *second_b;
 	t_flist *last_b;
 
-	  while((ft_list_size(*beta) > 8))
+	  while((ft_list_size(*beta) > 24))
 	{
 		first_b = *beta;
 		second_b = *beta;
@@ -483,8 +485,10 @@ void ft_algosrt_big(t_flist **alpha, t_flist **beta)//запускает бол�
 	i = 4;
 	ft_balance_a3(&(*alpha), &(*beta), i);
 	//i = 2;
-	ft_balance_a2(&(*alpha), &(*beta), i);
-
+	//ft_balance_a2(&(*alpha), &(*beta), i);
+		ft_balance_a2(&(*alpha), &(*beta), i);
+	i = 16;
+	//ft_balance_a3(&(*alpha), &(*beta), i);
 	//ft_balance(&(*alpha), &(*beta));
 	ft_algos(&(*alpha), &(*beta));
 	//ft_balance_a(&(*alpha), &(*beta));

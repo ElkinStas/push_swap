@@ -1,21 +1,61 @@
-NAME = checker
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: bhudson <marvin@42.fr>                     +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/07/24 17:39:25 by bhudson           #+#    #+#              #
+#    Updated: 2019/07/24 17:39:28 by bhudson          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-LIBRARY = libftprintf.a
-SRC = push_swap/*.c
+NAME_PUSH = push_swap
+
+NAME_CH = checker
+
+SRC_CH = main_for_checker.c \
+		ft_min_max.c \
+		ft_checker.c \
+		operations1.c \
+		operations2.c \
+		inicialization.c \
+		validation.c \
+		sort.c \
+		ft_check_cyclic_sort.c \
+		counting.c \
+		ft_memory.c \
+
+SRC_PUSH = main.c \
+		ft_min_max.c \
+		ft_checker.c \
+		operations1.c \
+		operations2.c \
+		inicialization.c \
+		validation.c \
+		sort.c \
+		ft_check_cyclic_sort.c \
+		counting.c \
+		ft_memory.c \
+
 OBJS = *.o
+INCLUDES = libft/libftprintf.a
 
-all: $(NAME)
+all: $(NAME_PUSH) $(NAME_CH)
 
-$(NAME):
-	make re -C ./libft
-	gcc -c -Wall -Wextra -Werror $(SRC) -I.
-	gcc -Wall -Wextra -Werror $(OBJS) -L. libft/$(LIBRARY) -o $(NAME)
-	make fclean -C ./libft
+$(NAME_PUSH): $(SRC_PUSH)
+		make -C libft
+		gcc -Wall -Werror -Wextra $(SRC_PUSH) $(INCLUDES) -o $(NAME_PUSH)
+
+$(NAME_CH): $(SRC_CH)
+		gcc -Wall -Werror -Wextra $(SRC_CH) $(INCLUDES) -o $(NAME_CH) -g
 
 clean:
-	rm -f $(OBJS)
+		make clean -C libft
 
-fclean:	clean
-		rm -f $(NAME)
+fclean: clean
+		make fclean -C libft
+		rm -f $(NAME_PUSH)
+		rm -f $(NAME_CH)
 
-re:	fclean all
+re: fclean all

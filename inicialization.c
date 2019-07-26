@@ -51,12 +51,10 @@ void	ft_record(t_push *push, char *argv)
 				ft_out();
 			while (*argv != ' ' && *argv != '\0')
 				argv++;
-			argv--;
 			push->i++;
 		}
 		else
 			argv++;
-		argv++;
 	}
 }
 
@@ -76,11 +74,13 @@ int		ft_check_overflow(t_push *push, char *argv, int num)
 		j = ft_skip_null_znak(argv);
 		i = ft_skip_null_znak(str);
 	}
-	while (str[i] != '\0')
+	while (str[i] != '\0' && i++)
 	{
 		if (argv[j] != str[i])
+		{
+			free(str);
 			return (1);
-		i++;
+		}
 		j++;
 	}
 	free(str);

@@ -8,7 +8,7 @@ all: $(NAME)
 $(NAME):
 	gcc -c -Wall -Wextra -Werror $(SRC) -I /libft/libft.h
 	ar rc $(NAME) $(OBJS)
-		
+
 clean:
 	rm -f $(OBJS)
 

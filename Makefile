@@ -6,7 +6,7 @@
 #    By: bhudson <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/24 17:39:25 by bhudson           #+#    #+#              #
-#    Updated: 2019/07/24 17:39:28 by bhudson          ###   ########.fr        #
+#    Updated: 2019/07/26 12:14:09 by bhudson          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,19 @@ SRC_PUSH = main.c \
 		counting.c \
 		ft_memory.c \
 
-OBJS = *.o
+OBJS = main_for_checker.o\
+		ft_min_max.o\
+		ft_checker.o\
+		operations1.o\
+		operations2.o\
+		inicialization.o\
+		validation.o\
+		sort.o\
+		ft_check_cyclic_sort.o\
+		counting.o\
+		ft_memory.o\
+		main.o\
+
 INCLUDES = libft/libftprintf.a
 
 all: $(NAME_PUSH) $(NAME_CH)

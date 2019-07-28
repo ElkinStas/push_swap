@@ -69,9 +69,9 @@ void	rotate_operations(t_push *push, char letter)
 			push->stack_a[i] = push->stack_a[i + 1];
 		push->stack_a[push->size_a - 1] = tmp;
 	}
-	else if (letter == 'b' && push->size_a > 0)
+	else if (letter == 'b' && push->size_b > 0)
 	{
-		while (++i < push->size_b)
+		while (++i < push->size_b - 1)
 			push->stack_b[i] = push->stack_b[i + 1];
 		push->stack_b[push->size_b - 1] = tmp;
 	}

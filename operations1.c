@@ -44,13 +44,20 @@ void	ft_do_rra(t_push *push, int *i)
 	}
 }
 
+void	reverse_rotate_double(t_push *push)
+{
+	reverse_rotate_operations(push, 'a');
+	reverse_rotate_operations(push, 'b');
+}
+
 void	reverse_rotate_operations(t_push *push, char letter)
 {
 	long	tmp;
 	int		i;
 
 	i = letter == 'a' ? push->size_a - 1 : push->size_b - 1;
-	tmp = letter == 'a' ? push->stack_a[i] : push->stack_b[i];
+	if (i != -1)
+		tmp = letter == 'a' ? push->stack_a[i] : push->stack_b[i];
 	if (letter == 'a' && push->size_a > 0)
 	{
 		ft_do_rra(push, &i);
@@ -66,9 +73,6 @@ void	reverse_rotate_operations(t_push *push, char letter)
 		push->stack_b[0] = tmp;
 	}
 	else if (letter == 'r')
-	{
-		reverse_rotate_operations(push, 'a');
-		reverse_rotate_operations(push, 'b');
-	}
+		reverse_rotate_double(push);
 	printstack(push);
 }

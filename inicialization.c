@@ -58,6 +58,12 @@ void	ft_record(t_push *push, char *argv)
 	}
 }
 
+void	ft_skip(char *argv, char *str, int *i, int *j)
+{
+	*j = ft_skip_null_znak(argv);
+	*i = ft_skip_null_znak(str);
+}
+
 int		ft_check_overflow(t_push *push, char *argv, int num)
 {
 	int		i;
@@ -70,11 +76,8 @@ int		ft_check_overflow(t_push *push, char *argv, int num)
 		return (0);
 	str = ft_itoa(num);
 	if (num != 0)
-	{
-		j = ft_skip_null_znak(argv);
-		i = ft_skip_null_znak(str);
-	}
-	while (str[i] != '\0' && i++)
+		ft_skip(argv, str, &i, &j);
+	while (str[i] != '\0')
 	{
 		if (argv[j] != str[i])
 		{
@@ -82,35 +85,8 @@ int		ft_check_overflow(t_push *push, char *argv, int num)
 			return (1);
 		}
 		j++;
+		i++;
 	}
 	free(str);
 	return (0);
-}
-
-void	printstack(t_push *push)
-{
-	int	i;
-	int	t;
-
-	t = (push->size_a > push->size_b ? push->size_a : push->size_b);
-	i = -1;
-	if (push->vis)
-	{
-		ft_printf("----------------------------\n");
-		ft_printf("|%-11c ||" "%11c |\n", 'a', 'b');
-		ft_printf("----------------------------");
-		ft_printf("\n");
-		while (++i < t)
-		{
-			if (i < push->size_a)
-				ft_printf("|%11ld |", push->stack_a[i]);
-			else
-				ft_printf("|%11s |", " ");
-			if (i < push->size_b)
-				ft_printf("|%11ld |\n", push->stack_b[i]);
-			else
-				ft_printf("|%11s |\n", " ");
-		}
-		ft_printf("----------------------------\n\n");
-	}
 }

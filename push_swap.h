@@ -91,4 +91,5 @@ void			ft_valid_buf(char **buff);
 
 void			ft_do_count(t_push *push);
 void			ft_memory(t_push *push);
+void			ft_skip(char *argv, char *str, int *i, int *j);
 #endif

@@ -91,3 +91,31 @@ int		ft_check_sort_elements(t_push *push)
 	else
 		return (0);
 }
+
+void	printstack(t_push *push)
+{
+	int	i;
+	int	t;
+
+	t = (push->size_a > push->size_b ? push->size_a : push->size_b);
+	i = -1;
+	if (push->vis)
+	{
+		ft_printf("----------------------------\n");
+		ft_printf("|%-11c ||" "%11c |\n", 'a', 'b');
+		ft_printf("----------------------------");
+		ft_printf("\n");
+		while (++i < t)
+		{
+			if (i < push->size_a)
+				ft_printf("|%11ld |", push->stack_a[i]);
+			else
+				ft_printf("|%11s |", " ");
+			if (i < push->size_b)
+				ft_printf("|%11ld |\n", push->stack_b[i]);
+			else
+				ft_printf("|%11s |\n", " ");
+		}
+		ft_printf("----------------------------\n\n");
+	}
+}

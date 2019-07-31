@@ -68,7 +68,7 @@ all: $(NAME_PUSH) $(NAME_CH)
 
 $(NAME_PUSH): $(SRC_PUSH)
 		make -C libft
-		gcc -c -Wall -Werror -Wextra $(SRC_PUSH) -I.
+		gcc -c -Wall -Werror -Wextra $(SRC_PUSH) -I. -g
 		gcc -Wall -Werror -Wextra $(OBJS_P) $(INCLUDES) -o $(NAME_PUSH)
 
 $(NAME_CH): $(SRC_CH)

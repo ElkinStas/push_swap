@@ -21,6 +21,20 @@ void	ft_do_count(t_push *push)
 	}
 }
 
+int		zero_string(int ac)
+{
+	if (ac < 2)
+		return (1);
+	return (0);
+}
+
+void	ft_separator(t_push *push)
+{
+	ft_separate_stack(push);
+	ft_do_count(push);
+	ft_stack_balance(push);
+}
+
 int		main(int ac, char **av)
 {
 	int		num;
@@ -30,6 +44,8 @@ int		main(int ac, char **av)
 	if (!(push = (t_push*)malloc(sizeof(t_push))))
 		ft_out();
 	ft_inicialization_push(push);
+	if (zero_string(ac) == 1)
+		exit(0);
 	while (++num < ac)
 		ft_valid(av[num], push);
 	ft_memory(push);
@@ -44,8 +60,6 @@ int		main(int ac, char **av)
 		ft_stack_balance(push);
 		exit(0);
 	}
-	ft_separate_stack(push);
-	ft_do_count(push);
-	ft_stack_balance(push);
+	ft_separator(push);
 	exit(0);
 }
